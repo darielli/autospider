@@ -28,7 +28,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Restore cached Primes
-      id: restore-cache
+      id: cache-primes-restore
       uses: actions/cache/restore@v3
       with:
         path: cache/data.txt
@@ -41,8 +41,8 @@ jobs:
         python run.py
 
     - name: Save Primes
-      id: save-cache
+      id: cache-primes-save
       uses: actions/cache/save@v3
       with:
-        key: ${{ steps.restore-cache.outputs.cache-primary-key }}
+        key: ${{ steps.cache-primes-restore.outputs.cache-primary-key }}
 
