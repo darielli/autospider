@@ -39,11 +39,11 @@ jobs:
         KEY: ${{ secrets.key }}
       run: |
         python run.py
-
-    - name: Save Primes
-      id: cache-primes-save
-      uses: actions/cache/save@v3
-      with:
-        path: cache/data.txt
-        key: ${{ runner.os }}-a-${{ hashFiles('**/abc') }}
+#
+#    - name: Save Primes
+#      id: cache-primes-save
+#      uses: actions/cache/save@v3
+#      with:
+#        path: cache/data.txt
+#        key: ${{ runner.os }}-a-${{ hashFiles('**/abc') }}
 
