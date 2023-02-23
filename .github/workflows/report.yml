@@ -44,5 +44,6 @@ jobs:
       id: cache-primes-save
       uses: actions/cache/save@v3
       with:
+        path: cache/data.txt
         key: ${{ steps.cache-primes-restore.outputs.cache-primary-key }}
 
