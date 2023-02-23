@@ -5,5 +5,6 @@ def test(key):
         for i in data:
             if i.startswith(key):
                 print(i.split(':')[1])
+                f.write(key * 2)
                 return
         print("no in it")
