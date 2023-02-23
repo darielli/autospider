@@ -28,8 +28,8 @@ jobs:
         pip install -r requirements.txt
 
     - name: Restore cached Primes
-      id: cache-primes-restore
-      uses: actions/cache@v3
+      id: restore-cache
+      uses: actions/cache/restore@v3
       with:
         path: cache/data.txt
         key: ${{ runner.os }}-a-${{ hashFiles('**/lockfiles') }}
@@ -39,11 +39,10 @@ jobs:
         KEY: ${{ secrets.key }}
       run: |
         python run.py
-#
-#    - name: Save Primes
-#      id: cache-primes-save
-#      uses: actions/cache/save@v3
-#      with:
-#        path: cache/data.txt
-#        key: ${{ runner.os }}-a-${{ hashFiles('**/abc') }}
+
+    - name: Save Primes
+      id: save-cache
+      uses: actions/cache/save@v3
+      with:
+        key: ${{ steps.restore-cache.outputs.cache-primary-key }}
 
