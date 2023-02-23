@@ -32,7 +32,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: cache/data.txt
-        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+        key: ${{ runner.os }}-a-${{ hashFiles('**/lockfiles') }}
 
     - name: Run Script
       env:
