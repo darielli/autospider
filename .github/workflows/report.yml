@@ -33,6 +33,7 @@ jobs:
       with:
         path: cache/data.txt
         key: ${{ runner.os }}-a-${{ hashFiles('**/lockfiles') }}
+        restore-keys:${{ runner.os }}-b-${{ hashFiles('**/lockfiles') }}
 
     - name: Run Script
       env:
@@ -45,5 +46,6 @@ jobs:
       uses: actions/cache/save@v3
       with:
         path: cache/data.txt
-        key: ${{ steps.cache-primes-restore.outputs.cache-primary-key }}
+        key: ${{ runner.os }}-b-${{ hashFiles('**/lockfiles') }}
+        restore-keys:${{ runner.os }}-a-${{ hashFiles('**/lockfiles') }}
 
