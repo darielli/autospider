@@ -32,7 +32,7 @@ jobs:
       uses: actions/cache/restore@v3
       with:
         path: cache/data.txt
-        key: "$CI_COMMIT_REF_SLUG"
+        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
 
     - name: Run Script
       env:
