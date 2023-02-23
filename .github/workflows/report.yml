@@ -1,9 +1,6 @@
 name: Auto Spider Notice
 
-cache:
-   key: "$CI_COMMIT_REF_SLUG"
-   paths:
-     cache/data.txt
+
 on:
   workflow_dispatch:
   push:
