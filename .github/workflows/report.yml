@@ -1,5 +1,9 @@
 name: Auto Spider Notice
 
+cache:
+   key: "$CI_COMMIT_REF_SLUG"
+   paths:
+     cache/data.txt
 on:
   workflow_dispatch:
   push:
@@ -31,7 +35,7 @@ jobs:
       uses: actions/cache/restore@v3
       with:
         path: cache/data.txt
-        key: ${CI_JOB_NAME}
+        key: "$CI_COMMIT_REF_SLUG"
 
     - name: Run Script
       env:
