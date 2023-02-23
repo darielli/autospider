@@ -1,6 +1,6 @@
 
 def test(key):
-    with open("/cache/data.txt", 'r+') as f:
+    with open("cache/data.txt", 'r+') as f:
         data = f.readlines()
         for i in data:
             if i.startswith(key):
