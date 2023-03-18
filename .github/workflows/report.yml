@@ -1,51 +1,39 @@
 name: Auto Spider Notice
 
-
 on:
   workflow_dispatch:
   push:
     branches:
       - main
 
-#  schedule:
-#    - cron: '0/20 * * * *'
+  schedule:
+    - cron: '0/30 * * * *'
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Set Up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Restore cached Primes
-      id: cache-primes-restore
-      uses: actions/cache/restore@v3
-      with:
-        path: cache/data.txt
-        key: ${{ runner.os }}-a-${{ hashFiles('**/lockfiles') }}
-        restore-keys:${{ runner.os }}-b-${{ hashFiles('**/lockfiles') }}
-
-    - name: Run Script
-      env:
-        KEY: ${{ secrets.key }}
-      run: |
-        python run.py
-
-    - name: Save Primes
-      id: cache-primes-save
-      uses: actions/cache/save@v3
-      with:
-        path: cache/data.txt
-        key: ${{ runner.os }}-b-${{ hashFiles('**/lockfiles') }}
-        restore-keys:${{ runner.os }}-a-${{ hashFiles('**/lockfiles') }}
-
+      - uses: actions/checkout@v2
+      - name: Set Up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Script
+        env:
+          HOST: ${{ secrets.host }}
+          PORT: ${{ secrets.port }}
+          USER: ${{ secrets.user }}
+          PASSWORD: ${{ secrets.password }}
+          DATABASE: ${{ secrets.database }}
+          SENDER_NAME: ${{ secrets.sender_name }}
+          ADDRESS: ${{ secrets.address }}
+          EMAIL_PASSWORD: ${{ secrets.email_password }}
+          RECEIVER_NAME: ${{ secrets.receiver_name }}
+          RECEIVER_ADDRESS: ${{ secrets.receiver_address }}
+        run: |
+          python run.py
