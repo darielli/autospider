@@ -1,4 +1,3 @@
-import os
 import smtplib
 from email.utils import parseaddr, formataddr
 from email.mime.multipart import MIMEMultipart

@@ -1,8 +1,6 @@
 import sys
 import requests
 from bs4 import BeautifulSoup
-import xlsxwriter
-import time
 
 
 # 爬取南大青年的公告通知，保存标题，时间，链接3部分内容

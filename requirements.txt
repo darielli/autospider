@@ -1,2 +1,4 @@
 requests
 pymysql
+bs4
+smtplib
