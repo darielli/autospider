@@ -14,7 +14,7 @@ def mysql_query(connection, web):
     # 使用 cursor() 方法创建一个游标对象 cursor
     cursor = db.cursor()
     # SQL 查询语句，查询user表
-    sql = 'SELECT title, detail, publish_time from posts where web = \'{}\' order by publish_time desc '.format(web)
+    sql = 'SELECT title, detail, publish_time from posts where web = \'{}\' order by publish_time desc, post_id desc'.format(web)
     # 执行sql语句查询
     cursor.execute(sql)
     # 这是获取表中第一个数据
