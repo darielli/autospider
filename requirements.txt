@@ -1,4 +1,4 @@
 requests
 pymysql
 bs4
-smtplib
+smtplib==8.8.4
