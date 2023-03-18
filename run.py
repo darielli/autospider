@@ -5,7 +5,7 @@ from send_emails import send_mail
 from spider.tuanwei import parse_tuanwei
 
 host = os.getenv('HOST')
-port = os.getenv('PORT')
+port = int(os.getenv('PORT'))
 user = os.getenv('USER')
 password = os.getenv('PASSWORD')
 database = os.getenv('DATABASE')
