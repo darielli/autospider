@@ -38,6 +38,7 @@ def main():
 
     data = mysql_query(c, url)
     if data is None:
+        print("数据库为空，返回第一条")
         send_and_store(sender, receiver, notice_list[0], url)
     else:
         index = -1
@@ -46,8 +47,11 @@ def main():
                 index = i
                 break
         if index == -1:
+            print("数据库中第一条不存在于第一页，返回第一条")
             send_and_store(sender, receiver, notice_list[0], url)
         else:
+            print("数据库中第一条存在于第一页，返回前面n条")
+            print("index:" + str(index))
             for i in reversed(range(index)):
                 send_and_store(sender, receiver, notice_list[i], url)
 
