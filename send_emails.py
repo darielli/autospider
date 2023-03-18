@@ -21,8 +21,6 @@ def message(message_info):
 
 
 def send_mail(sender, receiver, information):
-    print('infomation:')
-    print(information)
     msg = MIMEMultipart('related')
     msg["Subject"] = Header("南大青年新公告：" + information[0], 'utf-8').encode()  # 设置邮件标题
 
