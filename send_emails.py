@@ -6,29 +6,29 @@ from email.mime.text import MIMEText
 from datetime import datetime
 
 
-def message(message_info):
+def message(message_info, website):
     msg = """
     【新发布通知】<br />
-    南大青年发布新通知：<br />
+    {}发布新通知：<br />
     <strong>{}.</strong><br /><br /><br />
     点击链接查看详情：<br />
     {}
     <br />
     <br />
     {}
-    """.format(message_info[0], message_info[2], message_info[1])
+    """.format(website, message_info[0], message_info[2], message_info[1])
     return msg
 
 
-def send_mail(sender, receiver, information):
+def send_mail(sender, receiver, information, website):
     msg = MIMEMultipart('related')
-    msg["Subject"] = Header("南大青年新公告：" + information[0], 'utf-8').encode()  # 设置邮件标题
+    msg["Subject"] = Header(website + "新公告：" + information[0], 'utf-8').encode()  # 设置邮件标题
 
     msg['From'] = formataddr((Header(sender[0], 'utf-8').encode(), sender[1]))  # 发件人信息
 
     msg["To"] = formataddr((Header(receiver[0], 'utf-8').encode(), receiver[1]))  # just for single user
 
-    content = MIMEText(message(information), "html", 'utf-8')  # 设置邮件内容 'plain' for txt and 'html' for html codes
+    content = MIMEText(message(information, website), "html", 'utf-8')  # 设置邮件内容 'plain' for txt and 'html' for html codes
     msg.attach(content)
 
     server = smtplib.SMTP_SSL('smtp.exmail.qq.com',
