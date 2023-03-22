@@ -18,13 +18,13 @@ email_password = os.getenv('EMAIL_PASSWORD')
 receiver_name = os.getenv('RECEIVER_NAME')
 receiver_address = os.getenv('RECEIVER_ADDRESS')
 
-receiver2_name = os.getenv('RECEIVER2_NAME')
-receiver2_address = os.getenv('RECEIVER2_ADDRESS')
+# receiver2_name = os.getenv('RECEIVER2_NAME')
+# receiver2_address = os.getenv('RECEIVER2_ADDRESS')
 
 sender = [sender_name, address, email_password]
 receiver = [receiver_name, receiver_address]
-receiver2 = [receiver2_name, receiver2_address]
-receiver_list = [receiver, receiver2]
+# receiver2 = [receiver2_name, receiver2_address]
+receiver_list = [receiver]
 c = {
     "host": host,
     "port": port,
