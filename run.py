@@ -18,8 +18,13 @@ email_password = os.getenv('EMAIL_PASSWORD')
 receiver_name = os.getenv('RECEIVER_NAME')
 receiver_address = os.getenv('RECEIVER_ADDRESS')
 
+receiver_name2 = os.getenv('RECEIVER_NAME2')
+receiver_address2 = os.getenv('RECEIVER_NAME2')
+
 sender = [sender_name, address, email_password]
 receiver = [receiver_name, receiver_address]
+receiver2 = [receiver_name2, receiver_address2]
+receiver_list = [receiver, receiver2]
 c = {
     "host": host,
     "port": port,
@@ -33,9 +38,13 @@ website_dict = {
     "https://xgc.nju.edu.cn/1538/list.htm": "启明网-下载专区"
 }
 
-def send_and_store(sender_info, receiver_info, info, web):
-    send_mail(sender_info, receiver_info, info, website_dict[web])
+
+def send_and_store(info, web):
+    for i in receiver_list:
+        send_mail(sender, i, info, website_dict[web])
+        print("已向" + i[0] + " " + i[1] + "发送邮件" + str(info))
     mysql_insert(c, info, web)
+    print("已存入数据库" + str(info))
 
 
 def tuanwei():
@@ -44,7 +53,7 @@ def tuanwei():
     data = mysql_query(c, url)
     if data is None:
         print("数据库为空，返回第一条")
-        send_and_store(sender, receiver, notice_list[0], url)
+        send_and_store(notice_list[0], url)
     else:
         index = -1
         for i in range(len(notice_list)):
@@ -53,12 +62,12 @@ def tuanwei():
                 break
         if index == -1:
             print("数据库中第一条不存在于第一页，返回第一条")
-            send_and_store(sender, receiver, notice_list[0], url)
+            send_and_store(notice_list[0], url)
         else:
             print("数据库中第一条存在于第一页，返回前面n条")
             print("index:" + str(index))
             for i in reversed(range(index)):
-                send_and_store(sender, receiver, notice_list[i], url)
+                send_and_store(notice_list[i], url)
 
 
 def xuegong():
@@ -71,7 +80,7 @@ def xuegong():
         print("数据库为空，返回第一条")
         index = len(notice_list)
         for i in reversed(range(index)):
-            send_and_store(sender, receiver, notice_list[i], url)
+            send_and_store(notice_list[i], url)
     else:
         index = -1
         for i in range(len(notice_list)):
@@ -80,12 +89,12 @@ def xuegong():
                 break
         if index == -1:
             print("数据库中第一条不存在于第一页，返回第一条")
-            send_and_store(sender, receiver, notice_list[0], url)
+            send_and_store(notice_list[0], url)
         else:
             print("数据库中第一条存在于第一页，返回前面n条")
             print("index:" + str(index))
             for i in reversed(range(index)):
-                send_and_store(sender, receiver, notice_list[i], url)
+                send_and_store(notice_list[i], url)
 
 
 if __name__ == "__main__":
