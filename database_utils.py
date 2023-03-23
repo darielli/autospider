@@ -4,8 +4,7 @@ import pymysql.cursors
 def mysql_query(connection, web):
 
     # 数据库链接信息
-    db = pymysql.connect(host='47.96.238.162',
-    # db = pymysql.connect(host=connection['host'],
+    db = pymysql.connect(host=connection['host'],
                          port=connection['port'],
                          user=connection['user'],
                          password=connection['password'],
@@ -19,6 +18,27 @@ def mysql_query(connection, web):
     cursor.execute(sql)
     # 这是获取表中第一个数据
     rest = cursor.fetchone()
+    db.close()
+    return rest
+    # 关闭数据库连接
+
+
+def get_receivers(connection):
+    # 数据库链接信息
+    db = pymysql.connect(host=connection['host'],
+                         port=connection['port'],
+                         user=connection['user'],
+                         password=connection['password'],
+                         database=connection['database'])
+
+    # 使用 cursor() 方法创建一个游标对象 cursor
+    cursor = db.cursor()
+    # SQL 查询语句，查询user表
+    sql = 'SELECT name, email from receivers where subscription = 1'
+    # 执行sql语句查询
+    cursor.execute(sql)
+    # 这是获取表中全部数据
+    rest = cursor.fetchall()
     db.close()
     return rest
     # 关闭数据库连接
@@ -44,3 +64,7 @@ def mysql_insert(connection: dict, post: list, web):
     # 关闭数据库连接
     cursor.close()
     db.close()
+
+
+if __name__ == "__main__":
+    pass

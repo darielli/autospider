@@ -1,6 +1,7 @@
-from database_utils import mysql_query, mysql_insert
+from database_utils import *
 import os
 
+import time
 from send_emails import send_mail
 from spider.qi_ming import parse_xuegong
 from spider.tuanwei import parse_tuanwei
@@ -12,19 +13,11 @@ password = os.getenv('PASSWORD')
 database = os.getenv('DATABASE')
 
 sender_name = os.getenv('SENDER_NAME')
-address = os.getenv('ADDRESS')
-email_password = os.getenv('EMAIL_PASSWORD')
+sender_address = os.getenv('ADDRESS')
+sender_email_password = os.getenv('EMAIL_PASSWORD')
 
-receiver_name = os.getenv('RECEIVER_NAME')
-receiver_address = os.getenv('RECEIVER_ADDRESS')
+sender = [sender_name, sender_address, sender_email_password]
 
-receiver2_name = os.getenv('RECEIVER2_NAME')
-receiver2_address = os.getenv('RECEIVER2_ADDRESS')
-
-sender = [sender_name, address, email_password]
-receiver = [receiver_name, receiver_address]
-receiver2 = [receiver2_name, receiver2_address]
-receiver_list = [receiver]
 c = {
     "host": host,
     "port": port,
@@ -32,11 +25,14 @@ c = {
     "password": password,
     "database": database
 }
+
 website_dict = {
     "https://tuanwei.nju.edu.cn/ggtz/list1.htm": "南大青年",
     "https://xgc.nju.edu.cn/1537/list.htm": "启明网-网上公示",
     "https://xgc.nju.edu.cn/1538/list.htm": "启明网-下载专区"
 }
+
+receiver_list = get_receivers(c)
 
 
 def send_and_store(info, web):
@@ -97,9 +93,15 @@ def xuegong():
                 send_and_store(notice_list[i], url)
 
 
-if __name__ == "__main__":
+def run_spider():
+    print("启动爬虫:" + time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
     xuegong()
     tuanwei()
+    print("运行结束:" + time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
+
+
+if __name__ == "__main__":
+    run_spider()
 
 
 

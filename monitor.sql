@@ -31,3 +31,13 @@ create table `pictures` (
     PRIMARY KEY(`picture_id`),
     FOREIGN KEY (`post_id`) REFERENCES posts(`post_id`)
 )ENGINE=InnoDB AUTO_INCREMENT=500001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+drop table if exists `receivers`;
+create table `receivers` (
+    `receiver_id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `email` varchar(256) NOT NULL,
+    `name` varchar(256) NOT NULL,
+    `subscription` int(5) NOT NULL,
+    PRIMARY KEY(`receiver_id`)
+)ENGINE=InnoDB AUTO_INCREMENT=800001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
